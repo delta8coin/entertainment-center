@@ -39,10 +39,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', active: true },
-    { name: 'TV Shows', active: false },
-    { name: 'Movies', active: false },
-    { name: 'New & Popular', active: false },
-    { name: 'My List', active: false },
+    { name: 'Frequencies', active: false },
+    { name: 'Sound Healing', active: false },
+    { name: 'Meditation', active: false },
+    { name: 'Research', active: false },
   ];
 
   return (
@@ -56,9 +56,9 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between max-w-[1920px] mx-auto">
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-            {/* Netflix Logo */}
+            {/* Logo */}
             <h1 className="text-netflix-red text-xl sm:text-2xl md:text-3xl font-bold tracking-wider cursor-pointer select-none">
-              NETFLIX
+              FREQUENCY
             </h1>
 
             {/* Navigation Links - Desktop */}
@@ -116,7 +116,7 @@ const Navbar = () => {
             </button>
 
             {/* Profile */}
-            <button className="w-7 h-7 sm:w-8 sm:h-8 rounded bg-gradient-to-br from-netflix-red to-red-700 cursor-pointer flex items-center justify-center hover:ring-2 hover:ring-white/50 transition-all duration-200 focus-ring">
+            <button className="w-7 h-7 sm:w-8 sm:h-8 rounded bg-gradient-to-br from-netflix-red to-purple-700 cursor-pointer flex items-center justify-center hover:ring-2 hover:ring-white/50 transition-all duration-200 focus-ring">
               <span className="text-white text-xs sm:text-sm font-bold">U</span>
             </button>
 
