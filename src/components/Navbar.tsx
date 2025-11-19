@@ -50,6 +50,7 @@ const Navbar = () => {
     { name: 'Sound Healing', path: '/sound-healing' },
     { name: 'Meditation', path: '/meditation' },
     { name: 'Research', path: '/research' },
+    { name: 'Learning', path: '/learning' },
   ];
 
   const isActive = (path: string) => {
