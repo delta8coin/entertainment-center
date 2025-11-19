@@ -8,6 +8,7 @@ export interface Movie {
   vote_average: number;
   genre_ids: number[];
   media_type?: string;
+  video_id?: string;
 }
 
 export interface Genre {
