@@ -160,7 +160,7 @@ function App() {
 
             {/* Bottom Section */}
             <div className="pt-8 sm:pt-10 border-t border-gray-800/50">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8">
+              <div className="flex flex-col items-center justify-center gap-6 sm:gap-8">
                 {/* Social Links */}
                 <div className="flex gap-5 sm:gap-6">
                   <a
@@ -202,7 +202,7 @@ function App() {
                 </div>
 
                 {/* Copyright */}
-                <p className="text-xs sm:text-sm text-gray-600 text-center sm:text-right">
+                <p className="text-xs sm:text-sm text-gray-600 text-center">
                   &copy; {new Date().getFullYear()} Frequency & Vibration. Explore the healing power of sound energy.
                 </p>
               </div>
