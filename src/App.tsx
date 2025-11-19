@@ -36,37 +36,37 @@ function App() {
       {/* Movie Rows */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         <MovieRow
-          title="Trending Now"
+          title="Solfeggio Frequencies"
           movies={trendingNow}
           onMovieClick={handleMovieClick}
         />
 
         <MovieRow
-          title="Top Rated"
+          title="Healing Frequencies"
           movies={topRated}
           onMovieClick={handleMovieClick}
         />
 
         <MovieRow
-          title="Action & Adventure"
+          title="Brainwave States"
           movies={actionMovies}
           onMovieClick={handleMovieClick}
         />
 
         <MovieRow
-          title="Comedy"
+          title="Science of Sound"
           movies={comedyMovies}
           onMovieClick={handleMovieClick}
         />
 
         <MovieRow
-          title="Horror"
+          title="Sound Healing Practices"
           movies={horrorMovies}
           onMovieClick={handleMovieClick}
         />
 
         <MovieRow
-          title="Documentaries"
+          title="Ancient Wisdom & Research"
           movies={documentaries}
           onMovieClick={handleMovieClick}
         />
@@ -118,51 +118,51 @@ function App() {
           {/* Footer Links */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-3 sm:gap-y-4 mb-6 sm:mb-8 text-xs sm:text-sm">
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Audio Description
+              Solfeggio Guide
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Help Center
+              Frequency FAQ
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Gift Cards
+              Sound Therapy
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Media Center
+              Research Studies
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Investor Relations
+              Meditation Guide
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Jobs
+              Chakra Healing
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Terms of Use
+              Binaural Beats
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Privacy
+              432 Hz Music
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Legal Notices
+              Cymatics
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Cookie Preferences
+              Sacred Geometry
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Corporate Information
+              About Us
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-              Contact Us
+              Contact
             </a>
           </div>
 
-          {/* Service Code */}
-          <button className="px-3 py-1.5 border border-gray-600 text-gray-500 text-xs sm:text-sm hover:text-gray-300 hover:border-gray-400 transition-colors duration-200 mb-4 sm:mb-6">
-            Service Code
-          </button>
+          {/* Tagline */}
+          <p className="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 italic">
+            "If you want to find the secrets of the universe, think in terms of energy, frequency and vibration." - Nikola Tesla
+          </p>
 
           {/* Copyright */}
           <p className="text-[10px] sm:text-xs text-gray-600">
-            &copy; {new Date().getFullYear()} Netflix Clone. Built for demonstration purposes only.
+            &copy; {new Date().getFullYear()} Frequency & Vibration. Explore the healing power of sound energy.
           </p>
         </div>
       </footer>

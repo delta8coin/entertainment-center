@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'netflix-red': '#E50914',
-        'netflix-black': '#141414',
+        'netflix-red': '#8B5CF6',
+        'netflix-black': '#0F0F1A',
       },
     },
   },
