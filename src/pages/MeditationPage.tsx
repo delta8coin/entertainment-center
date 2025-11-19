@@ -42,12 +42,12 @@ const MeditationPage = () => {
       {/* Content Section */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         {/* Page Introduction */}
-        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mb-8">
+        <div className="container-padding mb-8">
           <div className="max-w-4xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               Meditation & Brainwave States
             </h2>
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
               Explore the science of brainwave entrainment and discover how different frequencies can guide your
               mind into optimal states for relaxation, creativity, focus, and deep meditation. Learn to harness
               the power of your brain's natural rhythms.
@@ -68,7 +68,7 @@ const MeditationPage = () => {
         />
 
         {/* Brainwave Guide */}
-        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mt-8">
+        <div className="container-padding mt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
             <div className="bg-white/5 rounded-lg p-5">
               <h3 className="text-lg font-semibold text-white mb-3">
