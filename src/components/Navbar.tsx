@@ -51,6 +51,7 @@ const Navbar = () => {
     { name: 'Meditation', path: '/meditation' },
     { name: 'Research', path: '/research' },
     { name: 'Learning', path: '/learning' },
+    { name: 'Resonix', path: '/resonix' },
   ];
 
   const isActive = (path: string) => {
