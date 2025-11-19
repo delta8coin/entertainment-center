@@ -5,7 +5,7 @@ import FrequenciesPage from './pages/FrequenciesPage';
 import SoundHealingPage from './pages/SoundHealingPage';
 import MeditationPage from './pages/MeditationPage';
 import ResearchPage from './pages/ResearchPage';
-import SoundLearningCenterPage from './pages/SoundLearningCenterPage';
+import LearnPage from './pages/LearnPage';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route path="/sound-healing" element={<SoundHealingPage />} />
           <Route path="/meditation" element={<MeditationPage />} />
           <Route path="/research" element={<ResearchPage />} />
-          <Route path="/learning" element={<SoundLearningCenterPage />} />
+          <Route path="/learn" element={<LearnPage />} />
         </Routes>
 
         {/* Footer */}
