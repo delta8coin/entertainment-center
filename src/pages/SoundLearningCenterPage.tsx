@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import {
   allSections,
-  learningCenterStats,
+  learningCenterStats
+} from '../data/soundLearningCenter';
+import type {
   LearningSection,
   LearningTopic,
   Resource
