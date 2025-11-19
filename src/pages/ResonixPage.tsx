@@ -129,51 +129,51 @@ export default function ResonixPage() {
       />
 
       {/* Gradient Overlays */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl" />
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-purple-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-pink-600/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-cyan-600/20 rounded-full blur-3xl" />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 pt-24 pb-16 px-6 sm:px-8 lg:px-12">
+      <div className="relative z-10 pt-28 sm:pt-32 md:pt-36 pb-16 px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-6xl md:text-7xl font-bold mb-4">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
                 Resonix
               </span>
             </h1>
-            <p className="text-xl text-purple-300/80 mb-2">The Frequency Forge</p>
-            <p className="text-sm text-purple-400/60 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-purple-300/80 mb-2">The Frequency Forge</p>
+            <p className="text-xs sm:text-sm text-purple-400/60 max-w-2xl mx-auto px-4">
               Professional brain-wave entrainment and frequency synthesis laboratory.
               Create binaural beats, isochronic tones, and multi-layered soundscapes.
             </p>
           </div>
 
           {/* Keyboard Shortcuts Info */}
-          <div className="mb-6 p-4 bg-purple-900/20 border border-purple-500/20 rounded-lg">
-            <div className="flex flex-wrap gap-4 justify-center text-sm text-purple-300/80">
-              <span>
+          <div className="mb-6 sm:mb-8 p-3 sm:p-4 bg-purple-900/20 border border-purple-500/20 rounded-lg">
+            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center text-xs sm:text-sm text-purple-300/80">
+              <span className="whitespace-nowrap">
                 <kbd className="px-2 py-1 bg-purple-900/40 border border-purple-500/40 rounded text-xs">
                   SPACE
                 </kbd>{' '}
                 Play/Pause
               </span>
-              <span>
+              <span className="whitespace-nowrap">
                 <kbd className="px-2 py-1 bg-purple-900/40 border border-purple-500/40 rounded text-xs">
                   S
                 </kbd>{' '}
                 Stop
               </span>
-              <span>
+              <span className="whitespace-nowrap">
                 <kbd className="px-2 py-1 bg-purple-900/40 border border-purple-500/40 rounded text-xs">
                   Ctrl+S
                 </kbd>{' '}
                 Save
               </span>
-              <span>
+              <span className="whitespace-nowrap">
                 <kbd className="px-2 py-1 bg-purple-900/40 border border-purple-500/40 rounded text-xs">
                   Ctrl+E
                 </kbd>{' '}
@@ -183,24 +183,24 @@ export default function ResonixPage() {
           </div>
 
           {/* Preset Selector */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <PresetSelector />
           </div>
 
           {/* Transport Controls */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <Transport />
           </div>
 
           {/* Main Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
             {/* Tracks - Takes 2 columns */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 w-full">
               <TrackList />
             </div>
 
             {/* Right Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6 w-full">
               {/* Visualizer */}
               <Visualizer />
 
@@ -210,13 +210,13 @@ export default function ResonixPage() {
           </div>
 
           {/* Effects Rack */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <EffectsRack />
           </div>
 
           {/* Footer Info */}
-          <div className="text-center mt-16 pt-8 border-t border-purple-500/20">
-            <p className="text-purple-400/60 text-sm mb-2">
+          <div className="text-center mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-purple-500/20">
+            <p className="text-purple-400/60 text-xs sm:text-sm mb-2 px-4">
               "If you want to find the secrets of the universe, think in terms of energy,
               frequency and vibration."
             </p>
