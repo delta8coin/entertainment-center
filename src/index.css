@@ -349,14 +349,6 @@ img {
   transition: opacity 0.3s ease;
 }
 
-img[loading] {
-  opacity: 0;
-}
-
-img:not([loading]) {
-  opacity: 1;
-}
-
 /* Touch action for better mobile scrolling */
 .touch-pan-x {
   touch-action: pan-x;
