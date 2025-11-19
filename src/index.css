@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-netflix-red: #8B5CF6;
+  --color-netflix-black: #0F0F1A;
+}
 
 * {
   margin: 0;
