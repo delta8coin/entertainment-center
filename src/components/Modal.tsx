@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Movie } from '../types';
 import { genres } from '../data/movies';
 
@@ -8,6 +8,8 @@ interface ModalProps {
 }
 
 const Modal = ({ movie, onClose }: ModalProps) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -27,12 +29,23 @@ const Modal = ({ movie, onClose }: ModalProps) => {
     };
   }, [movie, onClose]);
 
+  // Reset playing state when movie changes
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [movie]);
+
   if (!movie) return null;
 
   const movieGenres = movie.genre_ids
     .map((id) => genres.find((g) => g.id === id)?.name)
     .filter(Boolean)
     .join(', ');
+
+  const handlePlay = () => {
+    if (movie.video_id) {
+      setIsPlaying(true);
+    }
+  };
 
   return (
     <div
@@ -66,42 +79,58 @@ const Modal = ({ movie, onClose }: ModalProps) => {
 
         {/* Scrollable Content */}
         <div className="overflow-y-auto flex-1">
-          {/* Hero Image */}
+          {/* Hero Image / Video Player */}
           <div className="relative h-[200px] sm:h-[280px] md:h-[350px] lg:h-[400px] flex-shrink-0">
-            <img
-              src={movie.backdrop_path}
-              alt={movie.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-netflix-black via-netflix-black/40 to-transparent" />
+            {isPlaying && movie.video_id ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${movie.video_id}?autoplay=1&rel=0`}
+                title={movie.title}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <>
+                <img
+                  src={movie.backdrop_path}
+                  alt={movie.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-netflix-black via-netflix-black/40 to-transparent" />
 
-            {/* Title and Buttons */}
-            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 drop-shadow-lg">
-                {movie.title}
-              </h2>
+                {/* Title and Buttons */}
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 drop-shadow-lg">
+                    {movie.title}
+                  </h2>
 
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                <button className="btn-primary text-sm sm:text-base">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                  Play
-                </button>
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    <button
+                      onClick={handlePlay}
+                      className={`btn-primary text-sm sm:text-base ${!movie.video_id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={!movie.video_id}
+                    >
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      {movie.video_id ? 'Play' : 'Coming Soon'}
+                    </button>
 
-                <button className="btn-icon" aria-label="Add to My List">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                </button>
+                    <button className="btn-icon" aria-label="Add to My List">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </button>
 
-                <button className="btn-icon" aria-label="Like">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+                    <button className="btn-icon" aria-label="Like">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Details */}
