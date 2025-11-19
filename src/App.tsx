@@ -10,6 +10,7 @@ import {
   actionMovies,
   comedyMovies,
   horrorMovies,
+  hemiSyncContent,
   documentaries,
 } from './data/movies';
 import type { Movie } from './types';
@@ -50,6 +51,12 @@ function App() {
         <MovieRow
           title="Brainwave States"
           movies={actionMovies}
+          onMovieClick={handleMovieClick}
+        />
+
+        <MovieRow
+          title="Hemi-Sync & Monroe Institute"
+          movies={hemiSyncContent}
           onMovieClick={handleMovieClick}
         />
 
@@ -137,6 +144,12 @@ function App() {
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
               Binaural Beats
+            </a>
+            <a href="#" className="hover:text-gray-300 transition-colors duration-200">
+              Hemi-Sync Guide
+            </a>
+            <a href="#" className="hover:text-gray-300 transition-colors duration-200">
+              Monroe Institute
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
               432 Hz Music
