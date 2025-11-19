@@ -157,34 +157,39 @@ const SectionBlock = ({ section, expandedTopics, toggleTopic }: {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <section id={section.id} className="mb-16 sm:mb-20 scroll-mt-24">
-      <div className="mb-8 sm:mb-10">
+    <section id={section.id} className="mb-20 sm:mb-24 lg:mb-28 scroll-mt-24">
+      <div className="mb-10 sm:mb-12">
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="w-full flex items-center gap-4 sm:gap-6 group p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-white/[0.08] via-white/[0.05] to-transparent hover:from-white/[0.12] hover:via-white/[0.08] transition-all duration-500 border border-white/10 hover:border-netflix-red/30 shadow-xl hover:shadow-2xl hover:shadow-netflix-red/10 backdrop-blur-sm"
+          className="w-full flex items-center gap-5 sm:gap-7 md:gap-8 group p-6 sm:p-8 md:p-10 rounded-3xl bg-gradient-to-r from-netflix-red/10 via-purple-500/5 to-transparent hover:from-netflix-red/15 hover:via-purple-500/10 transition-all duration-500 border-2 border-white/10 hover:border-netflix-red/40 shadow-2xl hover:shadow-3xl hover:shadow-netflix-red/20 backdrop-blur-sm relative overflow-hidden"
         >
-          <span className="text-4xl sm:text-5xl md:text-6xl p-3 sm:p-4 bg-gradient-to-br from-netflix-red/20 to-netflix-red/10 rounded-xl sm:rounded-2xl group-hover:from-netflix-red/30 group-hover:to-netflix-red/20 transition-all duration-500 group-hover:scale-110 transform shadow-lg">{section.icon}</span>
-          <div className="text-left flex-1 min-w-0">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white group-hover:text-netflix-red transition-colors mb-1 sm:mb-2 leading-tight">
+          {/* Animated background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+          <span className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl p-4 sm:p-5 md:p-6 bg-gradient-to-br from-netflix-red/30 via-purple-500/20 to-netflix-red/10 rounded-2xl sm:rounded-3xl group-hover:from-netflix-red/40 group-hover:via-purple-500/30 group-hover:to-purple-500/20 transition-all duration-500 group-hover:scale-110 transform shadow-2xl border border-white/10 group-hover:border-white/20">{section.icon}</span>
+
+          <div className="text-left flex-1 min-w-0 relative">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-netflix-red group-hover:via-purple-500 group-hover:to-netflix-red transition-all duration-500 mb-2 sm:mb-3 leading-tight">
               {section.title}
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-400 group-hover:text-gray-300 transition-colors leading-relaxed">{section.subtitle}</p>
+            <p className="text-base sm:text-lg md:text-xl text-gray-400 group-hover:text-gray-200 transition-colors leading-relaxed">{section.subtitle}</p>
           </div>
-          <span className={`flex-shrink-0 text-gray-500 group-hover:text-netflix-red transition-all duration-500 bg-white/5 rounded-full p-2 sm:p-3 group-hover:bg-white/10 group-hover:scale-110 ${isCollapsed ? '' : 'rotate-180'}`}>
-            <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+
+          <span className={`relative flex-shrink-0 text-gray-500 group-hover:text-netflix-red transition-all duration-500 bg-white/10 rounded-full p-3 sm:p-4 group-hover:bg-netflix-red/20 group-hover:scale-110 border border-white/10 group-hover:border-netflix-red/30 ${isCollapsed ? '' : 'rotate-180'}`}>
+            <svg className="w-7 h-7 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
             </svg>
           </span>
         </button>
       </div>
 
       {!isCollapsed && (
-        <div className="animate-fadeIn pl-0 sm:pl-2 md:pl-6">
-          <p className="text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-4xl text-base sm:text-lg md:text-xl border-l-4 border-netflix-red/40 pl-5 sm:pl-7 py-2 bg-gradient-to-r from-netflix-red/5 to-transparent rounded-r-xl">
+        <div className="animate-fadeIn">
+          <p className="text-gray-200 mb-10 sm:mb-12 leading-relaxed max-w-5xl mx-auto text-lg sm:text-xl md:text-2xl border-l-4 border-gradient-to-b from-netflix-red via-purple-500 to-blue-500 pl-6 sm:pl-8 py-4 bg-gradient-to-r from-netflix-red/10 via-purple-500/5 to-transparent rounded-r-2xl backdrop-blur-sm shadow-lg">
             {section.overview}
           </p>
 
-          <div className="grid gap-5 sm:gap-6">
+          <div className="grid gap-6 sm:gap-7 lg:gap-8">
             {section.topics.map((topic) => (
               <TopicCard
                 key={topic.id}
@@ -200,34 +205,56 @@ const SectionBlock = ({ section, expandedTopics, toggleTopic }: {
   );
 };
 
-// Navigation sidebar for sections
-const SectionNav = ({ sections, activeSection }: {
+// Progress indicator for sections
+const ProgressIndicator = ({ sections, activeSection }: {
   sections: LearningSection[];
   activeSection: string;
 }) => {
+  const activeIndex = sections.findIndex(s => s.id === activeSection);
+  const progress = ((activeIndex + 1) / sections.length) * 100;
+
   return (
-    <nav className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-40">
-      <div className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-md rounded-2xl p-4 border border-white/10 shadow-2xl">
-        <p className="text-xs text-gray-500 mb-3 font-semibold uppercase tracking-wider">Sections</p>
-        <ul className="space-y-1.5">
-          {sections.map((section) => (
-            <li key={section.id}>
-              <a
-                href={`#${section.id}`}
-                className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
-                  activeSection === section.id
-                    ? 'bg-netflix-red/20 text-netflix-red border border-netflix-red/30 shadow-sm'
-                    : 'text-gray-400 hover:text-white hover:bg-white/10 border border-transparent'
-                }`}
-              >
-                <span className="text-lg">{section.icon}</span>
-                <span className="hidden xl:inline truncate max-w-32 font-medium">{section.title}</span>
-              </a>
-            </li>
+    <div className="hidden lg:block fixed left-8 top-1/2 -translate-y-1/2 z-40">
+      <div className="relative">
+        {/* Progress bar */}
+        <div className="w-1 h-64 bg-white/5 rounded-full overflow-hidden">
+          <div
+            className="w-full bg-gradient-to-b from-netflix-red to-purple-500 transition-all duration-500 rounded-full"
+            style={{ height: `${progress}%` }}
+          />
+        </div>
+
+        {/* Section dots */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-full flex flex-col justify-between py-2">
+          {sections.map((section, idx) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              className="group relative"
+              title={section.title}
+            >
+              <div className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                activeSection === section.id
+                  ? 'bg-netflix-red scale-150 shadow-lg shadow-netflix-red/50'
+                  : idx <= activeIndex
+                  ? 'bg-purple-500'
+                  : 'bg-white/20 hover:bg-white/40'
+              }`} />
+
+              {/* Tooltip */}
+              <div className="absolute left-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+                <div className="bg-black/90 backdrop-blur-md border border-white/20 rounded-lg px-3 py-2 shadow-xl">
+                  <p className="text-xs font-semibold text-white flex items-center gap-2">
+                    <span className="text-base">{section.icon}</span>
+                    {section.title}
+                  </p>
+                </div>
+              </div>
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
-    </nav>
+    </div>
   );
 };
 
@@ -294,66 +321,87 @@ const SoundLearningCenterPage = () => {
   return (
     <div className="min-h-screen bg-netflix-black">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-b from-netflix-red/20 via-netflix-red/5 to-netflix-black pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-24 md:pb-28 overflow-hidden">
+      <div className="relative bg-gradient-to-b from-netflix-red/20 via-purple-500/10 to-netflix-black pt-24 sm:pt-28 md:pt-32 lg:pt-40 pb-20 sm:pb-24 md:pb-28 lg:pb-32 overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 sm:w-96 sm:h-96 bg-netflix-red/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-80 h-80 sm:w-[500px] sm:h-[500px] bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] md:w-[1000px] md:h-[1000px] bg-gradient-radial from-netflix-red/5 to-transparent rounded-full"></div>
+          <div className="absolute top-20 left-10 w-96 h-96 sm:w-[500px] sm:h-[500px] bg-netflix-red/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 sm:w-[600px] sm:h-[600px] bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 sm:w-[400px] sm:h-[400px] bg-blue-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] sm:w-[1000px] sm:h-[1000px] md:w-[1200px] md:h-[1200px] bg-gradient-radial from-netflix-red/5 to-transparent rounded-full"></div>
+
           {/* Animated particles */}
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-netflix-red/30 rounded-full animate-ping"></div>
-          <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-netflix-red/30 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-netflix-red/30 rounded-full animate-ping" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-netflix-red/40 rounded-full animate-ping"></div>
+          <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-purple-500/40 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-blue-500/40 rounded-full animate-ping" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-netflix-red/40 rounded-full animate-ping" style={{ animationDelay: '2.5s' }}></div>
+
+          {/* Floating music notes */}
+          <div className="absolute top-1/3 left-1/5 text-netflix-red/20 text-4xl animate-bounce" style={{ animationDuration: '3s', animationDelay: '0s' }}>♪</div>
+          <div className="absolute top-2/3 right-1/5 text-purple-500/20 text-5xl animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>♫</div>
+          <div className="absolute top-1/2 right-1/3 text-blue-500/15 text-3xl animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '2s' }}>♪</div>
         </div>
 
         <div className="container-padding relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-block mb-6 sm:mb-8 animate-fadeIn">
-              <span className="px-5 py-2 sm:px-6 sm:py-2.5 bg-gradient-to-r from-netflix-red/20 to-netflix-red/10 text-netflix-red text-sm sm:text-base font-semibold rounded-full border border-netflix-red/30 backdrop-blur-sm shadow-lg shadow-netflix-red/20 hover:shadow-netflix-red/30 hover:border-netflix-red/50 transition-all duration-300">
-                Educational Resource
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="inline-block mb-6 sm:mb-8 lg:mb-10 animate-fadeIn">
+              <span className="px-6 py-2.5 sm:px-8 sm:py-3 bg-gradient-to-r from-netflix-red/20 via-purple-500/20 to-netflix-red/20 text-netflix-red text-sm sm:text-base lg:text-lg font-semibold rounded-full border border-netflix-red/30 backdrop-blur-sm shadow-lg shadow-netflix-red/20 hover:shadow-netflix-red/40 hover:border-netflix-red/50 transition-all duration-300 hover:scale-105 cursor-default">
+                🎓 Premium Educational Resource
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight animate-fadeIn leading-tight">
-              Sound Learning Center
+
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 sm:mb-8 tracking-tight animate-fadeIn leading-tight">
+              <span className="inline-block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+                Sound Learning
+              </span>
+              <br />
+              <span className="inline-block bg-gradient-to-r from-netflix-red via-purple-500 to-netflix-red bg-clip-text text-transparent animate-gradient bg-size-200">
+                Center
+              </span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed animate-fadeIn">
-              A comprehensive guide to the sciences of music, sound, and the brain
+
+            <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 sm:mb-14 lg:mb-16 max-w-4xl mx-auto leading-relaxed animate-fadeIn font-light">
+              A comprehensive guide to the <span className="text-netflix-red font-semibold">sciences of music</span>, <span className="text-purple-500 font-semibold">sound</span>, and the <span className="text-blue-400 font-semibold">brain</span>
             </p>
 
             {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16">
-              <div className="group text-center bg-gradient-to-br from-white/[0.12] via-white/[0.08] to-white/[0.04] backdrop-blur-md rounded-2xl px-8 sm:px-10 md:px-12 py-6 sm:py-7 md:py-8 border border-white/10 hover:border-netflix-red/40 transition-all duration-500 hover:scale-110 shadow-xl hover:shadow-2xl hover:shadow-netflix-red/20 cursor-default min-w-[140px] sm:min-w-[160px]">
-                <p className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-br from-netflix-red via-red-400 to-netflix-red bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+            <div className="flex flex-wrap justify-center gap-5 sm:gap-6 lg:gap-8 mb-14 sm:mb-16 lg:mb-20">
+              <div className="group relative text-center bg-gradient-to-br from-netflix-red/20 via-white/[0.08] to-white/[0.04] backdrop-blur-md rounded-3xl px-10 sm:px-12 md:px-14 py-7 sm:py-8 md:py-10 border border-netflix-red/30 hover:border-netflix-red/60 transition-all duration-500 hover:scale-110 shadow-2xl hover:shadow-3xl hover:shadow-netflix-red/30 cursor-default min-w-[160px] sm:min-w-[180px] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-netflix-red/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <p className="text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br from-netflix-red via-purple-500 to-netflix-red bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300 relative z-10">
                   {learningCenterStats.totalSections}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-400 font-semibold uppercase tracking-wider group-hover:text-gray-300 transition-colors">Disciplines</p>
+                <p className="text-sm sm:text-base text-gray-300 font-bold uppercase tracking-wider group-hover:text-white transition-colors relative z-10">Disciplines</p>
               </div>
-              <div className="group text-center bg-gradient-to-br from-white/[0.12] via-white/[0.08] to-white/[0.04] backdrop-blur-md rounded-2xl px-8 sm:px-10 md:px-12 py-6 sm:py-7 md:py-8 border border-white/10 hover:border-netflix-red/40 transition-all duration-500 hover:scale-110 shadow-xl hover:shadow-2xl hover:shadow-netflix-red/20 cursor-default min-w-[140px] sm:min-w-[160px]">
-                <p className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-br from-netflix-red via-red-400 to-netflix-red bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+
+              <div className="group relative text-center bg-gradient-to-br from-purple-500/20 via-white/[0.08] to-white/[0.04] backdrop-blur-md rounded-3xl px-10 sm:px-12 md:px-14 py-7 sm:py-8 md:py-10 border border-purple-500/30 hover:border-purple-500/60 transition-all duration-500 hover:scale-110 shadow-2xl hover:shadow-3xl hover:shadow-purple-500/30 cursor-default min-w-[160px] sm:min-w-[180px] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <p className="text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br from-purple-500 via-netflix-red to-purple-500 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300 relative z-10">
                   {learningCenterStats.totalTopics}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-400 font-semibold uppercase tracking-wider group-hover:text-gray-300 transition-colors">Topics</p>
+                <p className="text-sm sm:text-base text-gray-300 font-bold uppercase tracking-wider group-hover:text-white transition-colors relative z-10">Topics</p>
               </div>
-              <div className="group text-center bg-gradient-to-br from-white/[0.12] via-white/[0.08] to-white/[0.04] backdrop-blur-md rounded-2xl px-8 sm:px-10 md:px-12 py-6 sm:py-7 md:py-8 border border-white/10 hover:border-netflix-red/40 transition-all duration-500 hover:scale-110 shadow-xl hover:shadow-2xl hover:shadow-netflix-red/20 cursor-default min-w-[140px] sm:min-w-[160px]">
-                <p className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-br from-netflix-red via-red-400 to-netflix-red bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+
+              <div className="group relative text-center bg-gradient-to-br from-blue-500/20 via-white/[0.08] to-white/[0.04] backdrop-blur-md rounded-3xl px-10 sm:px-12 md:px-14 py-7 sm:py-8 md:py-10 border border-blue-500/30 hover:border-blue-400/60 transition-all duration-500 hover:scale-110 shadow-2xl hover:shadow-3xl hover:shadow-blue-500/30 cursor-default min-w-[160px] sm:min-w-[180px] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <p className="text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br from-blue-400 via-purple-500 to-blue-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300 relative z-10">
                   {learningCenterStats.totalResources}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-400 font-semibold uppercase tracking-wider group-hover:text-gray-300 transition-colors">Resources</p>
+                <p className="text-sm sm:text-base text-gray-300 font-bold uppercase tracking-wider group-hover:text-white transition-colors relative z-10">Resources</p>
               </div>
             </div>
 
             {/* Search */}
-            <div className="relative max-w-2xl mx-auto mb-10 sm:mb-12">
+            <div className="relative max-w-3xl mx-auto mb-12 sm:mb-14 lg:mb-16">
               <div className="relative group">
                 <input
                   type="text"
-                  placeholder="Search topics, concepts, or resources..."
+                  placeholder="🔍 Search topics, concepts, or resources..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-gradient-to-r from-white/[0.12] to-white/[0.08] backdrop-blur-md border border-white/20 rounded-2xl px-6 py-4 sm:py-5 pl-14 sm:pl-16 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-netflix-red focus:ring-2 focus:ring-netflix-red/30 transition-all duration-500 shadow-2xl focus:shadow-netflix-red/20 text-base sm:text-lg group-hover:border-white/30"
+                  className="w-full bg-gradient-to-r from-white/[0.15] via-white/[0.12] to-white/[0.15] backdrop-blur-md border-2 border-white/20 rounded-2xl px-7 py-5 sm:py-6 pl-16 sm:pl-18 pr-14 text-white placeholder-gray-400 focus:outline-none focus:border-netflix-red focus:ring-4 focus:ring-netflix-red/20 transition-all duration-500 shadow-2xl focus:shadow-netflix-red/30 text-base sm:text-lg lg:text-xl group-hover:border-white/30 hover:shadow-xl"
                 />
                 <svg
-                  className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 text-gray-400 group-focus-within:text-netflix-red transition-colors duration-300"
+                  className="absolute left-5 sm:left-6 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 text-gray-400 group-focus-within:text-netflix-red group-focus-within:scale-110 transition-all duration-300"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -363,9 +411,9 @@ const SoundLearningCenterPage = () => {
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-all duration-300 hover:scale-110 bg-white/5 hover:bg-white/10 rounded-full p-1.5"
+                    className="absolute right-5 sm:right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-all duration-300 hover:scale-110 bg-white/10 hover:bg-netflix-red/30 rounded-full p-2"
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -374,26 +422,26 @@ const SoundLearningCenterPage = () => {
             </div>
 
             {/* Expand/Collapse buttons */}
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
               <button
                 onClick={expandAll}
-                className="group px-6 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base font-semibold bg-gradient-to-r from-white/[0.12] to-white/[0.08] hover:from-white/[0.18] hover:to-white/[0.12] text-white rounded-xl sm:rounded-2xl transition-all duration-500 border border-white/10 hover:border-white/30 flex items-center gap-2.5 hover:scale-105 shadow-lg hover:shadow-xl backdrop-blur-sm"
+                className="group relative px-7 sm:px-9 py-4 sm:py-4.5 text-sm sm:text-base lg:text-lg font-semibold bg-gradient-to-r from-netflix-red/20 via-white/[0.12] to-netflix-red/20 hover:from-netflix-red/30 hover:via-white/[0.18] hover:to-netflix-red/30 text-white rounded-2xl transition-all duration-500 border-2 border-netflix-red/30 hover:border-netflix-red/50 flex items-center gap-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-netflix-red/30 backdrop-blur-sm overflow-hidden"
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-90 transition-transform duration-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                <span className="hidden sm:inline">Expand All</span>
-                <span className="sm:hidden">Expand</span>
+                <span className="relative z-10">Expand All Topics</span>
               </button>
               <button
                 onClick={collapseAll}
-                className="group px-6 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base font-semibold bg-gradient-to-r from-white/[0.12] to-white/[0.08] hover:from-white/[0.18] hover:to-white/[0.12] text-white rounded-xl sm:rounded-2xl transition-all duration-500 border border-white/10 hover:border-white/30 flex items-center gap-2.5 hover:scale-105 shadow-lg hover:shadow-xl backdrop-blur-sm"
+                className="group relative px-7 sm:px-9 py-4 sm:py-4.5 text-sm sm:text-base lg:text-lg font-semibold bg-gradient-to-r from-purple-500/20 via-white/[0.12] to-purple-500/20 hover:from-purple-500/30 hover:via-white/[0.18] hover:to-purple-500/30 text-white rounded-2xl transition-all duration-500 border-2 border-purple-500/30 hover:border-purple-500/50 flex items-center gap-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 backdrop-blur-sm overflow-hidden"
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-75 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-75 transition-transform duration-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                 </svg>
-                <span className="hidden sm:inline">Collapse All</span>
-                <span className="sm:hidden">Collapse</span>
+                <span className="relative z-10">Collapse All Topics</span>
               </button>
             </div>
           </div>
@@ -401,20 +449,20 @@ const SoundLearningCenterPage = () => {
       </div>
 
       {/* Quick Navigation (Mobile) */}
-      <div className="lg:hidden sticky top-16 z-30 bg-gradient-to-b from-netflix-black via-netflix-black/98 to-netflix-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
-        <div className="container-padding py-4 overflow-x-auto scrollbar-hide">
-          <div className="flex gap-3 min-w-max px-1">
+      <div className="lg:hidden sticky top-16 z-30 bg-gradient-to-b from-netflix-black via-netflix-black/98 to-netflix-black/90 backdrop-blur-xl border-b-2 border-white/10 shadow-2xl">
+        <div className="container-padding py-5 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-3 sm:gap-4 min-w-max px-1">
             {allSections.map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-500 ${
+                className={`flex items-center gap-3 px-6 py-3 rounded-2xl text-sm sm:text-base font-bold whitespace-nowrap transition-all duration-500 ${
                   activeSection === section.id
-                    ? 'bg-gradient-to-r from-netflix-red to-red-600 text-white shadow-xl shadow-netflix-red/40 scale-105 border-2 border-white/20'
-                    : 'bg-gradient-to-r from-white/[0.12] to-white/[0.08] text-gray-300 hover:from-white/[0.18] hover:to-white/[0.12] hover:text-white border border-white/10 hover:border-white/20 hover:scale-105'
+                    ? 'bg-gradient-to-r from-netflix-red via-purple-500 to-netflix-red text-white shadow-xl shadow-netflix-red/50 scale-105 border-2 border-white/30 animate-gradient bg-size-200'
+                    : 'bg-gradient-to-r from-white/[0.15] to-white/[0.10] text-gray-300 hover:from-white/[0.22] hover:to-white/[0.15] hover:text-white border-2 border-white/10 hover:border-white/25 hover:scale-105 shadow-lg'
                 }`}
               >
-                <span className="text-lg">{section.icon}</span>
+                <span className="text-xl sm:text-2xl">{section.icon}</span>
                 <span className="tracking-wide">{section.title.split(' ')[0]}</span>
               </a>
             ))}
@@ -423,25 +471,27 @@ const SoundLearningCenterPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container-padding py-12 sm:py-16">
-        <div className="max-w-4xl mx-auto lg:mr-48">
+      <div className="container-padding py-12 sm:py-16 lg:py-20">
+        <div className="max-w-6xl mx-auto">
           {searchQuery && filteredSections.length === 0 ? (
-            <div className="text-center py-20 sm:py-24 animate-fadeIn">
-              <div className="inline-block p-6 sm:p-8 bg-gradient-to-br from-white/[0.08] to-white/[0.02] rounded-3xl mb-6 sm:mb-8 shadow-2xl backdrop-blur-sm border border-white/10">
-                <svg className="w-16 h-16 sm:w-20 sm:h-20 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="text-center py-20 sm:py-24 lg:py-32 animate-fadeIn">
+              <div className="inline-block p-8 sm:p-10 bg-gradient-to-br from-netflix-red/10 via-purple-500/10 to-white/[0.02] rounded-3xl mb-8 sm:mb-10 shadow-2xl backdrop-blur-sm border border-white/10 relative overflow-hidden">
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-netflix-red/5 via-purple-500/5 to-transparent animate-pulse"></div>
+                <svg className="w-20 h-20 sm:w-24 sm:h-24 text-gray-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <p className="text-gray-400 text-lg sm:text-xl mb-3">No topics found matching</p>
-              <p className="text-white text-xl sm:text-2xl font-bold mb-8 sm:mb-10 px-4">"{searchQuery}"</p>
+              <p className="text-gray-400 text-xl sm:text-2xl mb-4 font-medium">No topics found matching</p>
+              <p className="text-white text-2xl sm:text-3xl font-bold mb-10 sm:mb-12 px-4 max-w-2xl mx-auto">"{searchQuery}"</p>
               <button
                 onClick={() => setSearchQuery('')}
-                className="group px-8 py-4 bg-gradient-to-r from-netflix-red to-red-600 hover:from-red-600 hover:to-netflix-red text-white rounded-2xl transition-all duration-500 font-semibold shadow-xl hover:shadow-2xl hover:shadow-netflix-red/30 hover:scale-105 flex items-center gap-2 mx-auto"
+                className="group px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-netflix-red via-purple-500 to-netflix-red hover:from-purple-500 hover:via-netflix-red hover:to-purple-500 text-white rounded-2xl transition-all duration-500 font-semibold shadow-xl hover:shadow-2xl hover:shadow-netflix-red/40 hover:scale-105 flex items-center gap-3 mx-auto text-base sm:text-lg bg-size-200 animate-gradient"
               >
-                <svg className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-90 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                Clear search
+                <span>Clear search and explore all topics</span>
               </button>
             </div>
           ) : (
@@ -457,50 +507,70 @@ const SoundLearningCenterPage = () => {
         </div>
       </div>
 
-      {/* Desktop Section Navigation */}
-      <SectionNav sections={allSections} activeSection={activeSection} />
+      {/* Desktop Progress Navigation */}
+      <ProgressIndicator sections={allSections} activeSection={activeSection} />
 
       {/* Footer CTA */}
-      <div className="relative bg-gradient-to-t from-netflix-red/20 via-netflix-red/5 to-transparent py-20 sm:py-24 md:py-28 overflow-hidden mt-12 sm:mt-16">
+      <div className="relative bg-gradient-to-t from-netflix-red/25 via-purple-500/10 to-transparent py-24 sm:py-28 md:py-32 lg:py-40 overflow-hidden mt-16 sm:mt-20 lg:mt-24">
         {/* Decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute bottom-0 left-1/4 w-80 h-80 sm:w-96 sm:h-96 bg-netflix-red/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 sm:w-96 sm:h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-netflix-red/5 to-transparent rounded-full"></div>
+          <div className="absolute bottom-0 left-1/4 w-96 h-96 sm:w-[500px] sm:h-[500px] bg-netflix-red/15 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 sm:w-[500px] sm:h-[500px] bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-radial from-netflix-red/10 to-transparent rounded-full"></div>
+
+          {/* Floating music notes */}
+          <div className="absolute bottom-1/4 left-1/4 text-netflix-red/20 text-5xl animate-bounce" style={{ animationDuration: '3s' }}>♪</div>
+          <div className="absolute top-1/3 right-1/4 text-purple-500/20 text-6xl animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>♫</div>
         </div>
 
         <div className="container-padding text-center relative z-10">
-          <div className="inline-block mb-6 sm:mb-8 animate-bounce">
-            <span className="text-5xl sm:text-6xl md:text-7xl">🎵</span>
+          <div className="inline-block mb-8 sm:mb-10 lg:mb-12">
+            <div className="relative">
+              <span className="text-6xl sm:text-7xl md:text-8xl animate-bounce">🎵</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-netflix-red/20 to-purple-500/20 rounded-full blur-2xl"></div>
+            </div>
           </div>
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 sm:mb-6 leading-tight">
-            Continue Your Learning Journey
+
+          <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+              Continue Your
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-netflix-red via-purple-500 to-netflix-red bg-clip-text text-transparent animate-gradient bg-size-200">
+              Learning Journey
+            </span>
           </h3>
-          <p className="text-gray-400 mb-10 sm:mb-12 max-w-3xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed">
-            Explore our other sections on frequencies, sound healing, meditation, and research
-            to deepen your understanding of sound's transformative power.
+
+          <p className="text-gray-300 mb-12 sm:mb-14 lg:mb-16 max-w-4xl mx-auto text-lg sm:text-xl md:text-2xl leading-relaxed font-light">
+            Explore our other sections on <span className="text-netflix-red font-semibold">frequencies</span>, <span className="text-purple-500 font-semibold">sound healing</span>, and <span className="text-blue-400 font-semibold">research</span> to deepen your understanding of sound's transformative power
           </p>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+
+          <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
             <a
               href="/frequencies"
-              className="group px-7 sm:px-8 py-4 sm:py-5 bg-gradient-to-r from-white/[0.12] to-white/[0.08] hover:from-white/[0.18] hover:to-white/[0.12] text-white rounded-xl sm:rounded-2xl transition-all duration-500 border border-white/10 hover:border-white/30 font-semibold flex items-center gap-3 hover:scale-110 shadow-xl hover:shadow-2xl backdrop-blur-md text-sm sm:text-base"
+              className="group relative px-8 sm:px-10 py-5 sm:py-6 bg-gradient-to-r from-netflix-red/20 via-white/[0.12] to-netflix-red/20 hover:from-netflix-red/30 hover:via-white/[0.18] hover:to-netflix-red/30 text-white rounded-2xl transition-all duration-500 border-2 border-netflix-red/30 hover:border-netflix-red/50 font-bold flex items-center gap-3 sm:gap-4 hover:scale-110 shadow-2xl hover:shadow-3xl hover:shadow-netflix-red/30 backdrop-blur-md text-base sm:text-lg overflow-hidden"
             >
-              <span className="text-2xl group-hover:scale-125 transition-transform duration-300">🔊</span>
-              <span>Frequencies</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <span className="text-3xl sm:text-4xl group-hover:scale-125 transition-transform duration-300 relative z-10">🔊</span>
+              <span className="relative z-10">Frequencies</span>
             </a>
+
             <a
               href="/sound-healing"
-              className="group px-7 sm:px-8 py-4 sm:py-5 bg-gradient-to-r from-white/[0.12] to-white/[0.08] hover:from-white/[0.18] hover:to-white/[0.12] text-white rounded-xl sm:rounded-2xl transition-all duration-500 border border-white/10 hover:border-white/30 font-semibold flex items-center gap-3 hover:scale-110 shadow-xl hover:shadow-2xl backdrop-blur-md text-sm sm:text-base"
+              className="group relative px-8 sm:px-10 py-5 sm:py-6 bg-gradient-to-r from-purple-500/20 via-white/[0.12] to-purple-500/20 hover:from-purple-500/30 hover:via-white/[0.18] hover:to-purple-500/30 text-white rounded-2xl transition-all duration-500 border-2 border-purple-500/30 hover:border-purple-500/50 font-bold flex items-center gap-3 sm:gap-4 hover:scale-110 shadow-2xl hover:shadow-3xl hover:shadow-purple-500/30 backdrop-blur-md text-base sm:text-lg overflow-hidden"
             >
-              <span className="text-2xl group-hover:scale-125 transition-transform duration-300">🧘</span>
-              <span>Sound Healing</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <span className="text-3xl sm:text-4xl group-hover:scale-125 transition-transform duration-300 relative z-10">🧘</span>
+              <span className="relative z-10">Sound Healing</span>
             </a>
+
             <a
               href="/research"
-              className="group px-7 sm:px-8 py-4 sm:py-5 bg-gradient-to-r from-white/[0.12] to-white/[0.08] hover:from-white/[0.18] hover:to-white/[0.12] text-white rounded-xl sm:rounded-2xl transition-all duration-500 border border-white/10 hover:border-white/30 font-semibold flex items-center gap-3 hover:scale-110 shadow-xl hover:shadow-2xl backdrop-blur-md text-sm sm:text-base"
+              className="group relative px-8 sm:px-10 py-5 sm:py-6 bg-gradient-to-r from-blue-500/20 via-white/[0.12] to-blue-500/20 hover:from-blue-500/30 hover:via-white/[0.18] hover:to-blue-500/30 text-white rounded-2xl transition-all duration-500 border-2 border-blue-500/30 hover:border-blue-500/50 font-bold flex items-center gap-3 sm:gap-4 hover:scale-110 shadow-2xl hover:shadow-3xl hover:shadow-blue-500/30 backdrop-blur-md text-base sm:text-lg overflow-hidden"
             >
-              <span className="text-2xl group-hover:scale-125 transition-transform duration-300">📚</span>
-              <span>Research</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <span className="text-3xl sm:text-4xl group-hover:scale-125 transition-transform duration-300 relative z-10">📚</span>
+              <span className="relative z-10">Research</span>
             </a>
           </div>
         </div>
