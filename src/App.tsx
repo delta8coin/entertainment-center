@@ -11,6 +11,8 @@ import {
   comedyMovies,
   horrorMovies,
   documentaries,
+  gatewayWaves,
+  focusLevels,
 } from './data/movies';
 import type { Movie } from './types';
 
@@ -68,6 +70,18 @@ function App() {
         <MovieRow
           title="Ancient Wisdom & Research"
           movies={documentaries}
+          onMovieClick={handleMovieClick}
+        />
+
+        <MovieRow
+          title="Gateway Experience - Hemi-Sync"
+          movies={gatewayWaves}
+          onMovieClick={handleMovieClick}
+        />
+
+        <MovieRow
+          title="Focus Levels - States of Consciousness"
+          movies={focusLevels}
           onMovieClick={handleMovieClick}
         />
       </div>
@@ -146,6 +160,9 @@ function App() {
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
               Sacred Geometry
+            </a>
+            <a href="#" className="hover:text-gray-300 transition-colors duration-200">
+              Gateway Experience
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors duration-200">
               About Us
