@@ -37,12 +37,12 @@ const SoundHealingPage = () => {
       {/* Content Section */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         {/* Page Introduction */}
-        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mb-8">
+        <div className="container-padding mb-8">
           <div className="max-w-4xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               Sound Healing Practices
             </h2>
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
               Experience the transformative power of sound healing through ancient instruments and modern techniques.
               From Tibetan singing bowls to crystal therapy, these practices use vibration and resonance to restore
               balance, release tension, and promote holistic well-being.
@@ -63,7 +63,7 @@ const SoundHealingPage = () => {
         />
 
         {/* Additional Info Section */}
-        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mt-8">
+        <div className="container-padding mt-8">
           <div className="bg-white/5 rounded-lg p-6 max-w-4xl">
             <h3 className="text-xl font-semibold text-white mb-3">
               Benefits of Sound Healing

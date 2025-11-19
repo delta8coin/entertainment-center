@@ -37,12 +37,12 @@ const ResearchPage = () => {
       {/* Content Section */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         {/* Page Introduction */}
-        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mb-8">
+        <div className="container-padding mb-8">
           <div className="max-w-4xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               Research & Ancient Wisdom
             </h2>
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
               Dive deep into the scientific research behind sound healing, consciousness exploration, and the ancient
               wisdom that modern science is only beginning to understand. From the Monroe Institute's pioneering work
               to Tesla's revelations about frequency, discover the evidence behind vibrational healing.
@@ -69,8 +69,8 @@ const ResearchPage = () => {
         />
 
         {/* Key Researchers Section */}
-        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mt-8">
-          <h3 className="text-xl font-semibold text-white mb-4">
+        <div className="container-padding mt-8">
+          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
             Pioneers in Sound Research
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
