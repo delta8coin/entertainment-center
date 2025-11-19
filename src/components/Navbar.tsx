@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,13 +39,22 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const navLinks = [
-    { name: 'Home', active: true },
-    { name: 'Frequencies', active: false },
-    { name: 'Sound Healing', active: false },
-    { name: 'Meditation', active: false },
-    { name: 'Research', active: false },
+    { name: 'Home', path: '/' },
+    { name: 'Frequencies', path: '/frequencies' },
+    { name: 'Sound Healing', path: '/sound-healing' },
+    { name: 'Meditation', path: '/meditation' },
+    { name: 'Research', path: '/research' },
   ];
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
     <>
@@ -57,23 +68,26 @@ const Navbar = () => {
         <div className="flex items-center justify-between max-w-[1920px] mx-auto">
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
             {/* Logo */}
-            <h1 className="text-netflix-red text-xl sm:text-2xl md:text-3xl font-bold tracking-wider cursor-pointer select-none">
-              FREQUENCY
-            </h1>
+            <Link to="/">
+              <h1 className="text-netflix-red text-xl sm:text-2xl md:text-3xl font-bold tracking-wider cursor-pointer select-none">
+                FREQUENCY
+              </h1>
+            </Link>
 
             {/* Navigation Links - Desktop */}
             <ul className="hidden md:flex items-center gap-3 lg:gap-5">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <button
+                  <Link
+                    to={link.path}
                     className={`text-sm lg:text-base font-medium cursor-pointer transition-colors duration-200 ${
-                      link.active
+                      isActive(link.path)
                         ? 'text-white'
                         : 'text-gray-300 hover:text-white'
                     }`}
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -180,16 +194,16 @@ const Navbar = () => {
           <ul className="space-y-1 stagger-children">
             {navLinks.map((link) => (
               <li key={link.name} className="animate-slide-in-right">
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`w-full text-left py-3 px-4 rounded-lg text-base font-medium transition-all duration-200 ${
-                    link.active
+                <Link
+                  to={link.path}
+                  className={`block w-full text-left py-3 px-4 rounded-lg text-base font-medium transition-all duration-200 ${
+                    isActive(link.path)
                       ? 'text-white bg-white/10'
                       : 'text-gray-300 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {link.name}
-                </button>
+                </Link>
               </li>
             ))}
           </ul>
