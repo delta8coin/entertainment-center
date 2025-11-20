@@ -45,7 +45,7 @@ const MovieRow = ({ title, movies, onMovieClick }: MovieRowProps) => {
   return (
     <div className="relative mb-6 sm:mb-8 md:mb-10 group/row">
       {/* Title */}
-      <h2 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-2 sm:mb-3 md:mb-4 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors duration-200">
+      <h2 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-2 sm:mb-3 md:mb-4 transition-colors duration-200">
         {title}
         <span className="inline-block ml-2 text-netflix-red opacity-0 group-hover/row:opacity-100 transition-opacity duration-300 text-sm">
           Explore All &rsaquo;
@@ -85,7 +85,7 @@ const MovieRow = ({ title, movies, onMovieClick }: MovieRowProps) => {
         <div
           ref={rowRef}
           onScroll={handleScroll}
-          className="flex gap-1.5 sm:gap-2 md:gap-3 overflow-x-auto hide-scrollbar px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-3 md:py-4 touch-pan-x scroll-smooth"
+          className="flex gap-1.5 sm:gap-2 md:gap-3 overflow-x-auto hide-scrollbar py-2 sm:py-3 md:py-4 touch-pan-x scroll-smooth"
         >
           {movies.map((movie, index) => (
             <MovieCard
