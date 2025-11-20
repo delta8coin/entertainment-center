@@ -185,29 +185,44 @@ export default function HeartTune() {
         audioBuffer.sampleRate
       );
 
-      // Create player in offline context
-      const player = new Tone.Player(audioBuffer);
+      // Decode audio again in the offline context to avoid AudioContext mismatch
+      const offlineAudioBuffer = await offlineContext.decodeAudioData(
+        await file.arrayBuffer()
+      );
 
-      if (mode === 'pure') {
-        // Pure 432: Simple varispeed (pitch + tempo shift)
-        player.playbackRate = CONVERSION_RATIO;
-        player.connect(offlineContext.destination);
-      } else {
-        // Pitch Only: Use PitchShift to maintain tempo
-        const pitchShift = new Tone.PitchShift({
-          pitch: -0.32, // Approximately -31.77 cents (440 to 432 Hz)
-        }).connect(offlineContext.destination);
+      // Set the offline context as the current context temporarily
+      const originalContext = Tone.getContext();
+      Tone.setContext(offlineContext);
 
-        player.connect(pitchShift);
-        player.playbackRate = 1; // Keep original tempo
+      let renderedBuffer: Tone.ToneAudioBuffer;
+      try {
+        // Create player in offline context
+        const player = new Tone.Player(offlineAudioBuffer);
+
+        if (mode === 'pure') {
+          // Pure 432: Simple varispeed (pitch + tempo shift)
+          player.playbackRate = CONVERSION_RATIO;
+          player.connect(offlineContext.destination);
+        } else {
+          // Pitch Only: Use PitchShift to maintain tempo
+          const pitchShift = new Tone.PitchShift({
+            pitch: -0.32, // Approximately -31.77 cents (440 to 432 Hz)
+          }).connect(offlineContext.destination);
+
+          player.connect(pitchShift);
+          player.playbackRate = 1; // Keep original tempo
+        }
+
+        setProgress(50);
+
+        // Start playback and render
+        player.start(0);
+
+        renderedBuffer = await offlineContext.render();
+      } finally {
+        // Ensure we always restore the original context
+        Tone.setContext(originalContext);
       }
-
-      setProgress(50);
-
-      // Start playback and render
-      player.start(0);
-
-      const renderedBuffer = await offlineContext.render();
 
       setProgress(75);
 
