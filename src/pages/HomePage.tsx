@@ -32,7 +32,7 @@ const HomePage = () => {
 
       {/* Movie Rows */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl">
           <MovieRow
             title="Solfeggio Frequencies"
             movies={trendingNow}

@@ -179,7 +179,7 @@ export default function ResonixPage() {
 
       {/* Main Content */}
       <div className="relative z-10 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl">
           {/* Header */}
           <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-5 md:mb-6">
