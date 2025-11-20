@@ -315,7 +315,7 @@ const LearnPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 max-w-7xl">
+      <div className="mx-auto py-20 lg:py-32 max-w-7xl">
         <div className="w-full">
           {searchQuery && filteredSections.length === 0 ? (
             <div className="text-center py-32">
