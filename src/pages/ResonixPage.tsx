@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useResonixStore } from '../stores/resonixStore';
+import { audioEngine } from '../services/audioEngine';
 import Transport from '../components/resonix/Transport';
 import TrackList from '../components/resonix/TrackList';
 import Visualizer from '../components/resonix/Visualizer';
@@ -8,7 +9,47 @@ import PresetSelector from '../components/resonix/PresetSelector';
 import MasterControls from '../components/resonix/MasterControls';
 
 export default function ResonixPage() {
-  const { transport, setPlaying, saveProject, exportProject } = useResonixStore();
+  const { transport, setPlaying, saveProject, exportProject, addTrack } = useResonixStore();
+  const [isAwakened, setIsAwakened] = useState(false);
+
+  // Set page title
+  useEffect(() => {
+    document.title = 'Resonix — Forge Frequencies, Reshape Minds';
+    return () => {
+      document.title = 'Frequency & Vibration - Sound Energy Exploration';
+    };
+  }, []);
+
+  const handleAwaken = async () => {
+    try {
+      await audioEngine.init();
+      setIsAwakened(true);
+
+      // Add a welcome 432Hz drone to confirm audio is working
+      addTrack({
+        name: 'Welcome Drone',
+        type: 'oscillator',
+        waveform: 'sine',
+        frequency: 432,
+        enabled: true,
+        solo: false,
+        mute: false,
+        volume: 0.5,
+        pan: 0,
+      });
+
+      // Auto-play the welcome drone for 3 seconds
+      setTimeout(() => {
+        setPlaying(true);
+        setTimeout(() => {
+          setPlaying(false);
+        }, 3000);
+      }, 100);
+    } catch (error) {
+      console.error('Failed to awaken Resonix:', error);
+      alert('Failed to initialize audio. Please try again.');
+    }
+  };
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -150,6 +191,25 @@ export default function ResonixPage() {
               Professional brain-wave entrainment and frequency synthesis laboratory.
               Create binaural beats, isochronic tones, and multi-layered soundscapes.
             </p>
+
+            {/* Awaken Button */}
+            {!isAwakened && (
+              <div className="mt-8">
+                <button
+                  onClick={handleAwaken}
+                  className="px-12 py-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 hover:from-purple-500 hover:via-pink-500 hover:to-cyan-500 text-white text-2xl font-bold transition-all duration-300 shadow-2xl shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 animate-pulse"
+                >
+                  ⚡ Awaken Resonix ⚡
+                </button>
+                <p className="text-purple-400/60 text-sm mt-4">Click to initialize the audio engine</p>
+              </div>
+            )}
+
+            {isAwakened && (
+              <div className="mt-6 px-6 py-3 bg-green-600/20 border border-green-500/40 rounded-lg inline-block">
+                <span className="text-green-400 font-semibold">🎵 Audio Engine Active</span>
+              </div>
+            )}
           </div>
 
           {/* Keyboard Shortcuts Info */}
