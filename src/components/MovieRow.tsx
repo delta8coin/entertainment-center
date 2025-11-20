@@ -53,7 +53,7 @@ const MovieRow = ({ title, movies, onMovieClick }: MovieRowProps) => {
       </h2>
 
       {/* Movie Row Container */}
-      <div className="relative">
+      <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 xl:-mx-12">
         {/* Left Arrow */}
         <button
           onClick={() => scroll('left')}
@@ -85,7 +85,7 @@ const MovieRow = ({ title, movies, onMovieClick }: MovieRowProps) => {
         <div
           ref={rowRef}
           onScroll={handleScroll}
-          className="flex gap-1.5 sm:gap-2 md:gap-3 overflow-x-auto hide-scrollbar py-2 sm:py-3 md:py-4 touch-pan-x scroll-smooth"
+          className="flex gap-1.5 sm:gap-2 md:gap-3 overflow-x-auto hide-scrollbar py-2 sm:py-3 md:py-4 px-4 sm:px-6 lg:px-8 xl:px-12 touch-pan-x scroll-smooth"
         >
           {movies.map((movie, index) => (
             <MovieCard
