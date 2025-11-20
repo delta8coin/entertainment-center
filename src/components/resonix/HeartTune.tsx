@@ -186,19 +186,18 @@ export default function HeartTune() {
       );
 
       // Create player in offline context
-      const player = new Tone.Player(audioBuffer).toDestination();
-      player.connect(offlineContext.destination);
+      const player = new Tone.Player(audioBuffer);
 
       if (mode === 'pure') {
         // Pure 432: Simple varispeed (pitch + tempo shift)
         player.playbackRate = CONVERSION_RATIO;
+        player.connect(offlineContext.destination);
       } else {
         // Pitch Only: Use PitchShift to maintain tempo
         const pitchShift = new Tone.PitchShift({
           pitch: -0.32, // Approximately -31.77 cents (440 to 432 Hz)
         }).connect(offlineContext.destination);
 
-        player.disconnect();
         player.connect(pitchShift);
         player.playbackRate = 1; // Keep original tempo
       }
@@ -212,8 +211,23 @@ export default function HeartTune() {
 
       setProgress(75);
 
+      // Convert ToneAudioBuffer to Web Audio API AudioBuffer
+      // Create a new AudioBuffer with the rendered data
+      const webAudioContext = Tone.getContext().rawContext as AudioContext;
+      const audioBufferForWav = webAudioContext.createBuffer(
+        renderedBuffer.numberOfChannels,
+        renderedBuffer.length,
+        renderedBuffer.sampleRate
+      );
+
+      // Copy channel data from ToneAudioBuffer to Web Audio API AudioBuffer
+      for (let channel = 0; channel < renderedBuffer.numberOfChannels; channel++) {
+        const channelData = renderedBuffer.toArray(channel) as Float32Array;
+        audioBufferForWav.copyToChannel(channelData, channel);
+      }
+
       // Convert to WAV blob
-      const wavBlob = await bufferToWave(renderedBuffer.get() as AudioBuffer);
+      const wavBlob = await bufferToWave(audioBufferForWav);
 
       setConvertedBlob(wavBlob);
       setProgress(100);
@@ -227,7 +241,8 @@ export default function HeartTune() {
 
     } catch (error) {
       console.error('Conversion failed:', error);
-      alert('Failed to convert audio. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      alert(`Failed to convert audio: ${errorMessage}\n\nPlease try again or check the console for details.`);
     } finally {
       setIsProcessing(false);
     }
