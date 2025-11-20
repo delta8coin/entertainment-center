@@ -65,16 +65,16 @@ export default function FrequencyLabPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-netflix-black pt-24 pb-16">
+    <div className="relative min-h-screen bg-netflix-black pt-28 md:pt-32 lg:pt-36 pb-16">
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-netflix-red/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="relative max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+      <div className="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Hero Header */}
-        <div className="text-center mb-12 animate-fade-in-up">
+        <div className="text-center mb-8 md:mb-10 lg:mb-12 animate-fade-in-up max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
             Resonix{' '}
             <span className="bg-gradient-to-r from-netflix-red to-purple-600 bg-clip-text text-transparent">
