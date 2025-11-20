@@ -136,17 +136,17 @@ export default function ResonixPage() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 pt-28 sm:pt-32 md:pt-36 pb-16 px-4 sm:px-6 md:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto">
+      <div className="relative z-10 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-5 md:mb-6">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
                 Resonix
               </span>
             </h1>
-            <p className="text-lg sm:text-xl text-purple-300/80 mb-2">The Frequency Forge</p>
-            <p className="text-xs sm:text-sm text-purple-400/60 max-w-2xl mx-auto px-4">
+            <p className="text-xl sm:text-2xl md:text-3xl text-purple-300/80 mb-3 sm:mb-4 font-light">The Frequency Forge</p>
+            <p className="text-sm sm:text-base md:text-lg text-purple-400/70 max-w-2xl mx-auto leading-relaxed">
               Professional brain-wave entrainment and frequency synthesis laboratory.
               Create binaural beats, isochronic tones, and multi-layered soundscapes.
             </p>
