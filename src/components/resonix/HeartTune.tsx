@@ -21,6 +21,8 @@ export default function HeartTune() {
   const [isComplete, setIsComplete] = useState(false);
   const [detectedFrequency, setDetectedFrequency] = useState<number | null>(null);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [shareToLibrary, setShareToLibrary] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
 
   const waveformRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
@@ -330,10 +332,12 @@ export default function HeartTune() {
     return new Blob([arrayBuffer], { type: 'audio/wav' });
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!convertedBlob || !file) return;
 
     const originalName = file.name.replace(/\.[^/.]+$/, '');
+
+    // Download the file
     const url = URL.createObjectURL(convertedBlob);
     const a = document.createElement('a');
     a.href = url;
@@ -342,6 +346,47 @@ export default function HeartTune() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
+    // Upload to library if checkbox is checked
+    if (shareToLibrary) {
+      try {
+        setIsUploading(true);
+
+        // Convert blob to base64
+        const reader = new FileReader();
+        reader.readAsDataURL(convertedBlob);
+
+        reader.onloadend = async () => {
+          const base64Audio = reader.result as string;
+
+          const response = await fetch('/api/save-to-library', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: originalName,
+              originalFrequency: detectedFrequency || 440,
+              targetFrequency: 432,
+              uploaderName: 'Anonymous', // Could be enhanced with user authentication
+              audioData: base64Audio,
+            }),
+          });
+
+          if (response.ok) {
+            console.log('Successfully shared to library!');
+            // Could show a success toast notification here
+          } else {
+            console.error('Failed to share to library');
+          }
+
+          setIsUploading(false);
+        };
+      } catch (error) {
+        console.error('Error sharing to library:', error);
+        setIsUploading(false);
+      }
+    }
   };
 
   const handleReset = () => {
@@ -522,11 +567,30 @@ export default function HeartTune() {
                 </p>
               </div>
 
+              {/* Share to Library Checkbox */}
+              <label className="flex items-start gap-3 p-4 bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-teal-900/40 border border-purple-500/30 rounded-xl cursor-pointer hover:border-purple-400/50 transition-all">
+                <input
+                  type="checkbox"
+                  checked={shareToLibrary}
+                  onChange={(e) => setShareToLibrary(e.target.checked)}
+                  className="mt-0.5 w-5 h-5 rounded bg-purple-900/50 border-purple-500/50 text-pink-500 focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-0 cursor-pointer"
+                />
+                <div className="flex-1">
+                  <div className="text-purple-200 font-medium text-sm">
+                    ✨ Share this healing version with the community
+                  </div>
+                  <div className="text-purple-400/70 text-xs mt-1">
+                    Add to the public Resonix Library so others can discover your 432 Hz conversion
+                  </div>
+                </div>
+              </label>
+
               <button
                 onClick={handleDownload}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-green-600 via-teal-600 to-cyan-600 hover:from-green-500 hover:via-teal-500 hover:to-cyan-500 text-white font-bold text-lg transition-all duration-300 shadow-xl shadow-green-500/30 hover:shadow-green-500/50 hover:scale-105"
+                disabled={isUploading}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-green-600 via-teal-600 to-cyan-600 hover:from-green-500 hover:via-teal-500 hover:to-cyan-500 text-white font-bold text-lg transition-all duration-300 shadow-xl shadow-green-500/30 hover:shadow-green-500/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                💾 Download 432 Hz Version
+                {isUploading ? '⏳ Downloading & Sharing...' : '💾 Download 432 Hz Version'}
               </button>
 
               <button
