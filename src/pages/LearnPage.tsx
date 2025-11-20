@@ -36,7 +36,7 @@ const TopicCard = ({ topic }: { topic: LearningTopic }) => {
           <h3 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             {topic.title}
           </h3>
-          <p className="text-gray-300 text-xl leading-relaxed  mx-auto">
+          <p className="text-gray-300 text-xl leading-relaxed max-w-3xl mx-auto">
             {topic.description}
           </p>
         </div>
@@ -47,7 +47,7 @@ const TopicCard = ({ topic }: { topic: LearningTopic }) => {
             <span className="w-1.5 h-1.5 bg-netflix-red rounded-full"></span>
             Core Concepts
           </h4>
-          <div className="grid gap-5  mx-auto">
+          <div className="grid gap-5 max-w-4xl mx-auto">
             {topic.keyPoints.map((point, idx) => (
               <div
                 key={idx}
@@ -66,7 +66,7 @@ const TopicCard = ({ topic }: { topic: LearningTopic }) => {
             <span className="w-1.5 h-1.5 bg-netflix-red rounded-full"></span>
             Curated Resources
           </h4>
-          <div className="grid gap-6 md:grid-cols-2  mx-auto">
+          <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
             {topic.resources.map((resource, idx) => (
               <div
                 key={idx}
@@ -139,7 +139,7 @@ const SectionBlock = ({ section, isFirstSection }: {
   return (
     <section id={section.id} className={`${isFirstSection ? '' : 'mt-40'} scroll-mt-24`}>
       {/* Section Header */}
-      <div className="mb-20 text-center  mx-auto">
+      <div className="mb-20 text-center max-w-5xl mx-auto">
         <div className="inline-flex items-center gap-8 p-10 rounded-3xl bg-gradient-to-r from-netflix-red/15 via-purple-500/8 to-transparent border border-white/20 backdrop-blur-sm mb-10 shadow-xl">
           <span className="text-7xl lg:text-8xl">{section.icon}</span>
           <div className="text-center">
@@ -150,7 +150,7 @@ const SectionBlock = ({ section, isFirstSection }: {
           </div>
         </div>
 
-        <p className="text-gray-200 text-xl lg:text-2xl leading-relaxed  mx-auto font-light">
+        <p className="text-gray-200 text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto font-light">
           {section.overview}
         </p>
       </div>
@@ -261,7 +261,7 @@ const LearnPage = () => {
             </div>
 
             {/* Search */}
-            <div className="relative  mx-auto">
+            <div className="relative max-w-2xl mx-auto">
               <input
                 type="text"
                 placeholder="Search topics and concepts..."
@@ -366,7 +366,7 @@ const LearnPage = () => {
               </span>
             </h3>
 
-            <p className="text-gray-200 mb-16  mx-auto text-2xl leading-relaxed font-light">
+            <p className="text-gray-200 mb-16 max-w-3xl mx-auto text-2xl leading-relaxed font-light">
               Explore our other sections to deepen your understanding of sound's transformative power
             </p>
 
