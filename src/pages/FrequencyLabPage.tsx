@@ -72,7 +72,7 @@ export default function FrequencyLabPage() {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-24">
+      <div className="relative container">
         {/* Hero Header */}
         <div className="text-center mb-8 md:mb-10 lg:mb-12 animate-fade-in-up max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
