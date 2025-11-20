@@ -36,7 +36,7 @@ const TopicCard = ({ topic }: { topic: LearningTopic }) => {
           <h3 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             {topic.title}
           </h3>
-          <p className="text-gray-300 text-xl leading-relaxed max-w-3xl mx-auto">
+          <p className="text-gray-300 text-xl leading-relaxed  mx-auto">
             {topic.description}
           </p>
         </div>
@@ -47,7 +47,7 @@ const TopicCard = ({ topic }: { topic: LearningTopic }) => {
             <span className="w-1.5 h-1.5 bg-netflix-red rounded-full"></span>
             Core Concepts
           </h4>
-          <div className="grid gap-5 max-w-4xl mx-auto">
+          <div className="grid gap-5  mx-auto">
             {topic.keyPoints.map((point, idx) => (
               <div
                 key={idx}
@@ -66,7 +66,7 @@ const TopicCard = ({ topic }: { topic: LearningTopic }) => {
             <span className="w-1.5 h-1.5 bg-netflix-red rounded-full"></span>
             Curated Resources
           </h4>
-          <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+          <div className="grid gap-6 md:grid-cols-2  mx-auto">
             {topic.resources.map((resource, idx) => (
               <div
                 key={idx}
@@ -139,7 +139,7 @@ const SectionBlock = ({ section, isFirstSection }: {
   return (
     <section id={section.id} className={`${isFirstSection ? '' : 'mt-40'} scroll-mt-24`}>
       {/* Section Header */}
-      <div className="mb-20 text-center max-w-6xl mx-auto">
+      <div className="mb-20 text-center  mx-auto">
         <div className="inline-flex items-center gap-8 p-10 rounded-3xl bg-gradient-to-r from-netflix-red/15 via-purple-500/8 to-transparent border border-white/20 backdrop-blur-sm mb-10 shadow-xl">
           <span className="text-7xl lg:text-8xl">{section.icon}</span>
           <div className="text-center">
@@ -150,7 +150,7 @@ const SectionBlock = ({ section, isFirstSection }: {
           </div>
         </div>
 
-        <p className="text-gray-200 text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto font-light">
+        <p className="text-gray-200 text-xl lg:text-2xl leading-relaxed  mx-auto font-light">
           {section.overview}
         </p>
       </div>
@@ -214,7 +214,7 @@ const LearnPage = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-radial from-white/5 to-transparent rounded-full"></div>
         </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ">
           <div className="text-center">
             {/* Badge */}
             <div className="inline-block mb-8">
@@ -261,7 +261,7 @@ const LearnPage = () => {
             </div>
 
             {/* Search */}
-            <div className="relative max-w-3xl mx-auto">
+            <div className="relative  mx-auto">
               <input
                 type="text"
                 placeholder="Search topics and concepts..."
@@ -294,7 +294,7 @@ const LearnPage = () => {
 
       {/* Quick Navigation Bar */}
       <div className="sticky top-16 z-30 bg-netflix-black/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-x-auto scrollbar-hide max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-x-auto scrollbar-hide ">
           <div className="flex gap-4 justify-center flex-wrap">
             {allSections.map((section) => (
               <a
@@ -315,7 +315,7 @@ const LearnPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto py-20 lg:py-32 max-w-7xl">
+      <div className="mx-auto py-20 lg:py-32 ">
         <div className="w-full">
           {searchQuery && filteredSections.length === 0 ? (
             <div className="text-center py-32">
@@ -352,7 +352,7 @@ const LearnPage = () => {
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 ">
           <div>
             <div className="mb-12">
               <span className="text-8xl">🎵</span>
@@ -366,7 +366,7 @@ const LearnPage = () => {
               </span>
             </h3>
 
-            <p className="text-gray-200 mb-16 max-w-3xl mx-auto text-2xl leading-relaxed font-light">
+            <p className="text-gray-200 mb-16  mx-auto text-2xl leading-relaxed font-light">
               Explore our other sections to deepen your understanding of sound's transformative power
             </p>
 
