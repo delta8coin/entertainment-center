@@ -7,6 +7,7 @@ import Visualizer from '../components/resonix/Visualizer';
 import EffectsRack from '../components/resonix/EffectsRack';
 import PresetSelector from '../components/resonix/PresetSelector';
 import MasterControls from '../components/resonix/MasterControls';
+import HeartTune from '../components/resonix/HeartTune';
 
 export default function ResonixPage() {
   const { transport, setPlaying, saveProject, exportProject, addTrack } = useResonixStore();
@@ -240,6 +241,11 @@ export default function ResonixPage() {
                 Export
               </span>
             </div>
+          </div>
+
+          {/* HeartTune 432 Hz Converter */}
+          <div className="mb-8 sm:mb-10 md:mb-12">
+            <HeartTune />
           </div>
 
           {/* Preset Selector */}
