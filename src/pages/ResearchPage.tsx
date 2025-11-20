@@ -36,79 +36,81 @@ const ResearchPage = () => {
 
       {/* Content Section */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        {/* Page Introduction */}
-        <div className="container-padding mb-8">
-          <div className="max-w-4xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              Research & Ancient Wisdom
-            </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
-              Dive deep into the scientific research behind sound healing, consciousness exploration, and the ancient
-              wisdom that modern science is only beginning to understand. From the Monroe Institute's pioneering work
-              to Tesla's revelations about frequency, discover the evidence behind vibrational healing.
-            </p>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          {/* Page Introduction */}
+          <div className="mb-8">
+            <div className="max-w-4xl">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                Research & Ancient Wisdom
+              </h2>
+              <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
+                Dive deep into the scientific research behind sound healing, consciousness exploration, and the ancient
+                wisdom that modern science is only beginning to understand. From the Monroe Institute's pioneering work
+                to Tesla's revelations about frequency, discover the evidence behind vibrational healing.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <MovieRow
-          title="Hemi-Sync & Monroe Institute"
-          movies={hemiSyncContent}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Hemi-Sync & Monroe Institute"
+            movies={hemiSyncContent}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Science of Sound"
-          movies={comedyMovies}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Science of Sound"
+            movies={comedyMovies}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Ancient Wisdom & Pioneers"
-          movies={documentaries}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Ancient Wisdom & Pioneers"
+            movies={documentaries}
+            onMovieClick={handleMovieClick}
+          />
 
-        {/* Key Researchers Section */}
-        <div className="container-padding mt-8">
-          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
-            Pioneers in Sound Research
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
-            <div className="bg-white/5 rounded-lg p-5">
-              <h4 className="text-white font-medium mb-2">Robert Monroe</h4>
-              <p className="text-gray-400 text-sm">
-                Founder of the Monroe Institute and developer of Hemi-Sync technology for consciousness exploration.
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-lg p-5">
-              <h4 className="text-white font-medium mb-2">Nikola Tesla</h4>
-              <p className="text-gray-400 text-sm">
-                Visionary inventor who understood that energy, frequency, and vibration are the keys to the universe.
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-lg p-5">
-              <h4 className="text-white font-medium mb-2">Pythagoras</h4>
-              <p className="text-gray-400 text-sm">
-                Ancient Greek philosopher who discovered the mathematical relationships between musical intervals.
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-lg p-5">
-              <h4 className="text-white font-medium mb-2">Dr. Masaru Emoto</h4>
-              <p className="text-gray-400 text-sm">
-                Researcher who demonstrated how consciousness and sound affect the molecular structure of water.
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-lg p-5">
-              <h4 className="text-white font-medium mb-2">Dr. Royal Rife</h4>
-              <p className="text-gray-400 text-sm">
-                Developer of frequency therapy devices and the concept of mortal oscillatory rates.
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-lg p-5">
-              <h4 className="text-white font-medium mb-2">Hans Jenny</h4>
-              <p className="text-gray-400 text-sm">
-                Pioneer of cymatics who revealed how sound creates visible geometric patterns in matter.
-              </p>
+          {/* Key Researchers Section */}
+          <div className="mt-8">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
+              Pioneers in Sound Research
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
+              <div className="bg-white/5 rounded-lg p-5">
+                <h4 className="text-white font-medium mb-2">Robert Monroe</h4>
+                <p className="text-gray-400 text-sm">
+                  Founder of the Monroe Institute and developer of Hemi-Sync technology for consciousness exploration.
+                </p>
+              </div>
+              <div className="bg-white/5 rounded-lg p-5">
+                <h4 className="text-white font-medium mb-2">Nikola Tesla</h4>
+                <p className="text-gray-400 text-sm">
+                  Visionary inventor who understood that energy, frequency, and vibration are the keys to the universe.
+                </p>
+              </div>
+              <div className="bg-white/5 rounded-lg p-5">
+                <h4 className="text-white font-medium mb-2">Pythagoras</h4>
+                <p className="text-gray-400 text-sm">
+                  Ancient Greek philosopher who discovered the mathematical relationships between musical intervals.
+                </p>
+              </div>
+              <div className="bg-white/5 rounded-lg p-5">
+                <h4 className="text-white font-medium mb-2">Dr. Masaru Emoto</h4>
+                <p className="text-gray-400 text-sm">
+                  Researcher who demonstrated how consciousness and sound affect the molecular structure of water.
+                </p>
+              </div>
+              <div className="bg-white/5 rounded-lg p-5">
+                <h4 className="text-white font-medium mb-2">Dr. Royal Rife</h4>
+                <p className="text-gray-400 text-sm">
+                  Developer of frequency therapy devices and the concept of mortal oscillatory rates.
+                </p>
+              </div>
+              <div className="bg-white/5 rounded-lg p-5">
+                <h4 className="text-white font-medium mb-2">Hans Jenny</h4>
+                <p className="text-gray-400 text-sm">
+                  Pioneer of cymatics who revealed how sound creates visible geometric patterns in matter.
+                </p>
+              </div>
             </div>
           </div>
         </div>

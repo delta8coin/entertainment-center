@@ -23,59 +23,61 @@ const Hero = ({ movie, onMoreInfo }: HeroProps) => {
       </div>
 
       {/* Content */}
-      <div className="absolute bottom-[15%] sm:bottom-[20%] md:bottom-[25%] lg:bottom-[30%] left-0 right-0 container-padding z-10">
-        <div className="max-w-2xl animate-fade-in-up">
-          {/* Badge */}
-          <div className="flex items-center gap-2 mb-3 sm:mb-4">
-            <span className="inline-flex items-center px-2 py-0.5 rounded bg-netflix-red text-white text-xs font-bold tracking-wide">
-              N
-            </span>
-            <span className="text-gray-300 text-xs sm:text-sm font-medium tracking-widest uppercase">
-              Series
-            </span>
-          </div>
+      <div className="absolute bottom-[15%] sm:bottom-[20%] md:bottom-[25%] lg:bottom-[30%] left-0 right-0 z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="max-w-2xl animate-fade-in-up">
+            {/* Badge */}
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+              <span className="inline-flex items-center px-2 py-0.5 rounded bg-netflix-red text-white text-xs font-bold tracking-wide">
+                N
+              </span>
+              <span className="text-gray-300 text-xs sm:text-sm font-medium tracking-widest uppercase">
+                Series
+              </span>
+            </div>
 
-          {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-3 sm:mb-4 md:mb-5 drop-shadow-2xl leading-tight">
-            {movie.title}
-          </h1>
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-3 sm:mb-4 md:mb-5 drop-shadow-2xl leading-tight">
+              {movie.title}
+            </h1>
 
-          {/* Rating and Year */}
-          <div className="flex items-center gap-3 mb-3 sm:mb-4">
-            <span className="text-green-500 font-semibold text-sm sm:text-base">
-              {Math.round(movie.vote_average * 10)}% Match
-            </span>
-            <span className="text-gray-400 text-sm sm:text-base">
-              {movie.release_date?.split('-')[0]}
-            </span>
-            <span className="px-1.5 py-0.5 text-xs border border-gray-400 text-gray-400 rounded">
-              HD
-            </span>
-          </div>
+            {/* Rating and Year */}
+            <div className="flex items-center gap-3 mb-3 sm:mb-4">
+              <span className="text-green-500 font-semibold text-sm sm:text-base">
+                {Math.round(movie.vote_average * 10)}% Match
+              </span>
+              <span className="text-gray-400 text-sm sm:text-base">
+                {movie.release_date?.split('-')[0]}
+              </span>
+              <span className="px-1.5 py-0.5 text-xs border border-gray-400 text-gray-400 rounded">
+                HD
+              </span>
+            </div>
 
-          {/* Overview */}
-          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-4 sm:mb-5 md:mb-6 line-clamp-2 sm:line-clamp-3 drop-shadow-lg max-w-xl leading-relaxed">
-            {movie.overview}
-          </p>
+            {/* Overview */}
+            <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-4 sm:mb-5 md:mb-6 line-clamp-2 sm:line-clamp-3 drop-shadow-lg max-w-xl leading-relaxed">
+              {movie.overview}
+            </p>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-2 sm:gap-3">
-            <button className="btn-primary text-sm sm:text-base">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              <span>Play</span>
-            </button>
+            {/* Buttons */}
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              <button className="btn-primary text-sm sm:text-base">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span>Play</span>
+              </button>
 
-            <button
-              onClick={() => onMoreInfo(movie)}
-              className="btn-secondary text-sm sm:text-base"
-            >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>More Info</span>
-            </button>
+              <button
+                onClick={() => onMoreInfo(movie)}
+                className="btn-secondary text-sm sm:text-base"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>More Info</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

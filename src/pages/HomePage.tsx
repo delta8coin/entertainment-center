@@ -32,47 +32,49 @@ const HomePage = () => {
 
       {/* Movie Rows */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        <MovieRow
-          title="Solfeggio Frequencies"
-          movies={trendingNow}
-          onMovieClick={handleMovieClick}
-        />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <MovieRow
+            title="Solfeggio Frequencies"
+            movies={trendingNow}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Healing Frequencies"
-          movies={topRated}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Healing Frequencies"
+            movies={topRated}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Brainwave States"
-          movies={actionMovies}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Brainwave States"
+            movies={actionMovies}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Hemi-Sync & Monroe Institute"
-          movies={hemiSyncContent}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Hemi-Sync & Monroe Institute"
+            movies={hemiSyncContent}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Science of Sound"
-          movies={comedyMovies}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Science of Sound"
+            movies={comedyMovies}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Sound Healing Practices"
-          movies={horrorMovies}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Sound Healing Practices"
+            movies={horrorMovies}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Ancient Wisdom & Research"
-          movies={documentaries}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Ancient Wisdom & Research"
+            movies={documentaries}
+            onMovieClick={handleMovieClick}
+          />
+        </div>
       </div>
 
       {/* Modal */}

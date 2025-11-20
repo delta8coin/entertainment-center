@@ -36,60 +36,62 @@ const SoundHealingPage = () => {
 
       {/* Content Section */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        {/* Page Introduction */}
-        <div className="container-padding mb-8">
-          <div className="max-w-4xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              Sound Healing Practices
-            </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
-              Experience the transformative power of sound healing through ancient instruments and modern techniques.
-              From Tibetan singing bowls to crystal therapy, these practices use vibration and resonance to restore
-              balance, release tension, and promote holistic well-being.
-            </p>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          {/* Page Introduction */}
+          <div className="mb-8">
+            <div className="max-w-4xl">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                Sound Healing Practices
+              </h2>
+              <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
+                Experience the transformative power of sound healing through ancient instruments and modern techniques.
+                From Tibetan singing bowls to crystal therapy, these practices use vibration and resonance to restore
+                balance, release tension, and promote holistic well-being.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <MovieRow
-          title="Healing Instruments"
-          movies={horrorMovies}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Healing Instruments"
+            movies={horrorMovies}
+            onMovieClick={handleMovieClick}
+          />
 
-        <MovieRow
-          title="Science of Sound"
-          movies={comedyMovies}
-          onMovieClick={handleMovieClick}
-        />
+          <MovieRow
+            title="Science of Sound"
+            movies={comedyMovies}
+            onMovieClick={handleMovieClick}
+          />
 
-        {/* Additional Info Section */}
-        <div className="container-padding mt-8">
-          <div className="bg-white/5 rounded-lg p-6 max-w-4xl">
-            <h3 className="text-xl font-semibold text-white mb-3">
-              Benefits of Sound Healing
-            </h3>
-            <ul className="text-gray-300 text-sm space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="text-netflix-red mt-1">•</span>
-                Deep relaxation and stress reduction
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-netflix-red mt-1">•</span>
-                Chakra balancing and energy alignment
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-netflix-red mt-1">•</span>
-                Pain relief and physical healing
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-netflix-red mt-1">•</span>
-                Enhanced meditation and spiritual connection
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-netflix-red mt-1">•</span>
-                Improved sleep and emotional balance
-              </li>
-            </ul>
+          {/* Additional Info Section */}
+          <div className="mt-8">
+            <div className="bg-white/5 rounded-lg p-6 max-w-4xl">
+              <h3 className="text-xl font-semibold text-white mb-3">
+                Benefits of Sound Healing
+              </h3>
+              <ul className="text-gray-300 text-sm space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-netflix-red mt-1">•</span>
+                  Deep relaxation and stress reduction
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-netflix-red mt-1">•</span>
+                  Chakra balancing and energy alignment
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-netflix-red mt-1">•</span>
+                  Pain relief and physical healing
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-netflix-red mt-1">•</span>
+                  Enhanced meditation and spiritual connection
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-netflix-red mt-1">•</span>
+                  Improved sleep and emotional balance
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
