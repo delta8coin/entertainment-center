@@ -222,8 +222,11 @@ export default function HeartTune() {
 
       // Copy channel data from ToneAudioBuffer to Web Audio API AudioBuffer
       for (let channel = 0; channel < renderedBuffer.numberOfChannels; channel++) {
-        const channelData = renderedBuffer.toArray(channel) as Float32Array;
-        audioBufferForWav.copyToChannel(channelData, channel);
+        const channelData = renderedBuffer.toArray(channel);
+        const float32Data = Array.isArray(channelData)
+          ? new Float32Array(channelData[0])
+          : new Float32Array(channelData);
+        audioBufferForWav.copyToChannel(float32Data, channel);
       }
 
       // Convert to WAV blob

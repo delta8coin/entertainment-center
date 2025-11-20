@@ -29,7 +29,7 @@ const ResourceBadge = ({ type }: { type: Resource['type'] }) => {
 // Individual topic card - NO ACCORDIONS, fully expanded beautiful cards
 const TopicCard = ({ topic }: { topic: LearningTopic }) => {
   return (
-    <div className="mx-auto w-full max-w-5xl">
+    <div className="w-full">
       <div className="group bg-gradient-to-br from-white/[0.07] via-white/[0.04] to-transparent rounded-3xl p-8 lg:p-12 border border-white/10 hover:border-white/20 transition-all duration-700 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-sm hover:scale-[1.01] transform">
         {/* Topic Header */}
         <div className="mb-10 text-center">
