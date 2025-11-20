@@ -6,6 +6,7 @@ import SoundHealingPage from './pages/SoundHealingPage';
 import MeditationPage from './pages/MeditationPage';
 import ResearchPage from './pages/ResearchPage';
 import LearnPage from './pages/LearnPage';
+import ResonixPage from './pages/ResonixPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/meditation" element={<MeditationPage />} />
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/learn" element={<LearnPage />} />
+          <Route path="/resonix" element={<ResonixPage />} />
         </Routes>
 
         {/* Footer */}
