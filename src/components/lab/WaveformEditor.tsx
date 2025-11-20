@@ -22,6 +22,7 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
   const spectrogramRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const regionsPluginRef = useRef<any>(null);
+  const isInitializingRef = useRef<boolean>(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -36,6 +37,10 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
   // Initialize WaveSurfer
   useEffect(() => {
     if (!waveformRef.current || !audioBuffer) return;
+
+    // Prevent multiple simultaneous initializations
+    if (isInitializingRef.current) return;
+    isInitializingRef.current = true;
 
     // Create regions plugin
     const regionsPlugin = RegionsPlugin.create();
@@ -71,12 +76,25 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
 
     wavesurferRef.current = ws;
 
-    // Load audio buffer
-    ws.loadBlob(audioBufferToBlob(audioBuffer));
+    // Load audio buffer with error handling
+    try {
+      const blob = audioBufferToBlob(audioBuffer);
+      ws.loadBlob(blob);
+    } catch (error) {
+      console.error('Failed to load audio buffer:', error);
+      alert('Failed to load audio waveform. Please try refreshing the page.');
+      return;
+    }
 
     // Event listeners
     ws.on('ready', () => {
       setDuration(ws.getDuration());
+      isInitializingRef.current = false;
+    });
+
+    ws.on('error', (error: any) => {
+      console.error('WaveSurfer error:', error);
+      isInitializingRef.current = false;
     });
 
     ws.on('play', () => setIsPlaying(true));
@@ -106,8 +124,15 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
       }
     });
 
-    // Double-click to create region
-    ws.on('interaction', () => {
+    // Double-click to create region - with debouncing to prevent infinite loops
+    let interactionTimeout: NodeJS.Timeout | null = null;
+    ws.on('dblclick', () => {
+      if (interactionTimeout) return;
+
+      interactionTimeout = setTimeout(() => {
+        interactionTimeout = null;
+      }, 100);
+
       if (!regionsPlugin.getRegions().length) {
         const duration = ws.getDuration();
         regionsPlugin.addRegion({
@@ -122,7 +147,14 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
 
     // Clean up
     return () => {
-      ws.destroy();
+      isInitializingRef.current = false;
+      try {
+        if (ws && typeof ws.destroy === 'function') {
+          ws.destroy();
+        }
+      } catch (error) {
+        console.error('Error destroying WaveSurfer:', error);
+      }
       wavesurferRef.current = null;
     };
   }, [audioBuffer]);
@@ -132,17 +164,26 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
     if (!wavesurferRef.current || !audioBuffer || !spectrogramRef.current) return;
 
     if (showSpectrogram) {
-      const spectrogramPlugin = SpectrogramPlugin.create({
-        container: spectrogramRef.current,
-        labels: true,
-        height: 150,
-      });
+      try {
+        const spectrogramPlugin = SpectrogramPlugin.create({
+          container: spectrogramRef.current,
+          labels: true,
+          height: 150,
+        });
 
-      wavesurferRef.current.registerPlugin(spectrogramPlugin);
+        wavesurferRef.current.registerPlugin(spectrogramPlugin);
 
-      return () => {
-        spectrogramPlugin.destroy();
-      };
+        return () => {
+          try {
+            spectrogramPlugin.destroy();
+          } catch (error) {
+            console.error('Error destroying spectrogram:', error);
+          }
+        };
+      } catch (error) {
+        console.error('Failed to create spectrogram:', error);
+        setShowSpectrogram(false);
+      }
     }
   }, [showSpectrogram, audioBuffer]);
 
@@ -206,8 +247,18 @@ export default function WaveformEditor({ audioBuffer, fileName }: WaveformEditor
 
     try {
       const retunedBuffer = await retuneAudio(audioBuffer, targetHz);
+
+      // Ensure we have a valid buffer before converting
+      if (!retunedBuffer || retunedBuffer.length === 0) {
+        throw new Error('Retune produced invalid audio buffer');
+      }
+
       const blob = audioBufferToBlob(retunedBuffer);
-      wavesurferRef.current.loadBlob(blob);
+
+      // Load the new blob into WaveSurfer
+      if (wavesurferRef.current) {
+        wavesurferRef.current.loadBlob(blob);
+      }
     } catch (error) {
       console.error('Retune failed:', error);
       alert('Failed to retune audio. Please try again.');
