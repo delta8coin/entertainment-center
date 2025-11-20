@@ -215,7 +215,7 @@ const LearnPage = () => {
         </div>
 
         <div className="mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
-          <div className="max-w-6xl mx-auto text-center">
+          <div className="text-center">
             {/* Badge */}
             <div className="inline-block mb-8">
               <span className="px-6 py-3 bg-gradient-to-r from-netflix-red/20 to-purple-500/20 text-white text-sm font-bold rounded-full border border-white/20 backdrop-blur-sm">
@@ -295,7 +295,7 @@ const LearnPage = () => {
       {/* Quick Navigation Bar */}
       <div className="sticky top-16 z-30 bg-netflix-black/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-x-auto scrollbar-hide max-w-7xl">
-          <div className="flex gap-4 justify-center flex-wrap max-w-6xl mx-auto">
+          <div className="flex gap-4 justify-center flex-wrap">
             {allSections.map((section) => (
               <a
                 key={section.id}
@@ -353,7 +353,7 @@ const LearnPage = () => {
         </div>
 
         <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 max-w-7xl">
-          <div className="max-w-5xl mx-auto">
+          <div>
             <div className="mb-12">
               <span className="text-8xl">🎵</span>
             </div>
