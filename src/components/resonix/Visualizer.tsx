@@ -13,18 +13,15 @@ export default function Visualizer() {
     if (!transport.isPlaying || !canvasRef.current) return;
 
     try {
-      const audioContext = audioEngine.getContext() as AudioContext;
+      // Get the analyser from the audio engine (it's already connected)
+      const analyser = audioEngine.getAnalyser();
 
-      if (!analyserRef.current) {
-        analyserRef.current = audioContext.createAnalyser();
+      if (analyser && !analyserRef.current) {
+        analyserRef.current = analyser;
+        // Update FFT size based on visualizer mode
         analyserRef.current.fftSize = visualizerMode === 'waveform' ? 2048 : 8192;
-        analyserRef.current.smoothingTimeConstant = 0.8;
-
-        // Note: In a real implementation, we'd connect Tone.js nodes to the analyser
-        // For now, the analyser will visualize the audio output
+        setIsInitialized(true);
       }
-
-      setIsInitialized(true);
     } catch (error) {
       console.error('Visualizer initialization error:', error);
     }

@@ -14,6 +14,9 @@ class AudioEngine {
   private compressor: Tone.Compressor;
   private limiter: Tone.Limiter;
 
+  // Analyser for visualization
+  private analyser: AnalyserNode | null = null;
+
   constructor() {
     // Initialize master effects chain
     this.masterChannel = new Tone.Channel().toDestination();
@@ -37,8 +40,19 @@ class AudioEngine {
   async init() {
     if (!this.initialized) {
       await Tone.start();
+
+      // Create and connect analyser to destination for visualization
+      const audioContext = Tone.getContext().rawContext as AudioContext;
+      this.analyser = audioContext.createAnalyser();
+      this.analyser.fftSize = 2048;
+      this.analyser.smoothingTimeConstant = 0.8;
+
+      // Connect Tone.js destination to analyser
+      const destination = Tone.getDestination() as unknown as AudioNode;
+      destination.connect(this.analyser);
+
       this.initialized = true;
-      console.log('Audio engine initialized');
+      console.log('🎵 Audio engine initialized - Ready to make frequencies!');
     }
   }
 
@@ -69,12 +83,16 @@ class AudioEngine {
         case 'binaural': {
           // Create binaural beat (different frequencies in each ear)
           const baseFreq = track.baseFrequency || 200;
+          const leftOffset = track.leftOffset || 2;
+          const rightOffset = track.rightOffset || 2;
+
+          // Left ear gets base - offset, right ear gets base + offset
           const leftOsc = new Tone.Oscillator({
-            frequency: baseFreq - (track.leftOffset || 2),
+            frequency: baseFreq + leftOffset,
             type: 'sine',
           });
           const rightOsc = new Tone.Oscillator({
-            frequency: baseFreq + (track.rightOffset || 2),
+            frequency: baseFreq + rightOffset,
             type: 'sine',
           });
 
@@ -274,7 +292,7 @@ class AudioEngine {
     const leftNode = this.trackNodes.get(`${track.id}_left`) as Tone.Oscillator;
     const rightNode = this.trackNodes.get(`${track.id}_right`) as Tone.Oscillator;
     if (leftNode && rightNode && track.baseFrequency !== undefined) {
-      leftNode.frequency.value = track.baseFrequency - (track.leftOffset || 2);
+      leftNode.frequency.value = track.baseFrequency + (track.leftOffset || 2);
       rightNode.frequency.value = track.baseFrequency + (track.rightOffset || 2);
     }
 
@@ -417,6 +435,16 @@ class AudioEngine {
   // Get destination node for visualizers
   getDestination(): AudioNode {
     return Tone.getDestination() as unknown as AudioNode;
+  }
+
+  // Get analyser for visualization
+  getAnalyser(): AnalyserNode | null {
+    return this.analyser;
+  }
+
+  // Check if initialized
+  isInitialized(): boolean {
+    return this.initialized;
   }
 
   // Cleanup
