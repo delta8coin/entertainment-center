@@ -214,7 +214,7 @@ const LearnPage = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-radial from-white/5 to-transparent rounded-full"></div>
         </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 max-w-screen-2xl">
+        <div className="container relative z-10">
           <div className="text-center max-w-5xl mx-auto">
             {/* Badge */}
             <div className="inline-block mb-4 md:mb-5">
@@ -294,7 +294,7 @@ const LearnPage = () => {
 
       {/* Quick Navigation Bar */}
       <div className="sticky top-16 z-30 bg-netflix-black/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-4 md:py-5 overflow-x-auto scrollbar-hide max-w-screen-2xl">
+        <div className="container py-4 md:py-5 overflow-x-auto scrollbar-hide">
           <div className="flex gap-2 md:gap-3 justify-center flex-wrap">
             {allSections.map((section) => (
               <a
@@ -315,7 +315,7 @@ const LearnPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-12 md:py-16 lg:py-20 max-w-screen-2xl">
+      <div className="container py-12 md:py-16 lg:py-20">
         <div className="w-full">
           {searchQuery && filteredSections.length === 0 ? (
             <div className="text-center py-32">
@@ -352,7 +352,7 @@ const LearnPage = () => {
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center relative z-10 max-w-screen-2xl">
+        <div className="container text-center relative z-10">
           <div>
             <div className="mb-12">
               <span className="text-8xl">🎵</span>
