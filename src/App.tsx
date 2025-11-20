@@ -8,6 +8,7 @@ import ResearchPage from './pages/ResearchPage';
 import LearnPage from './pages/LearnPage';
 import ResonixPage from './pages/ResonixPage';
 import LibraryPage from './pages/LibraryPage';
+import FrequencyLabPage from './pages/FrequencyLabPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/learn" element={<LearnPage />} />
           <Route path="/resonix" element={<ResonixPage />} />
           <Route path="/library" element={<LibraryPage />} />
+          <Route path="/frequency-lab" element={<FrequencyLabPage />} />
         </Routes>
 
         {/* Footer */}
