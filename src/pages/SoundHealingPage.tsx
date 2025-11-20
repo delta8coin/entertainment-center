@@ -36,7 +36,7 @@ const SoundHealingPage = () => {
 
       {/* Content Section */}
       <div className="-mt-16 sm:-mt-24 md:-mt-32 relative z-10 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           {/* Page Introduction */}
           <div className="mb-8">
             <div className="max-w-4xl">
